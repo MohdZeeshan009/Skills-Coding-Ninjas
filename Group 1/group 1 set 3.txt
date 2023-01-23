@@ -1,0 +1,113 @@
+1.
+import java.util.*;
+public class Solution {
+
+	/* Input
+	 * n - number of rows */
+	public static void printPattern(int n){
+
+		Stack<Integer> st = new Stack<>();
+		int num=1;
+		int count=1;
+		while(num<=(n*n)){
+			System.out.print(num+" ");
+			num++;
+			count++;
+			if(count==n+1){
+				System.out.println();
+				st.add(num);
+				num+=n;
+				count=1;
+			}
+		}
+		if(st.peek()>=n*n){
+			st.pop();
+		}
+		while(!st.empty()){
+			int s1=st.pop();
+			for(int i=s1;i<s1+n;i++){
+				System.out.print(i+" ");
+			}
+			System.out.println();
+		}
+
+	}
+	
+}
+
+//*print the pattern
+
+2.
+import java.util.Scanner;
+
+public class Solution {
+
+	public static void ans(int n, String str) {
+		//Write your code here
+		boolean arr[] = new boolean[26];
+		for(int i=0;i<str.length();i++){
+			char ch = str.charAt(i);
+			if(ch>='a'&&ch<='z'){
+				int index = ch-'a';
+				arr[index]=true;
+			}
+			if(ch>='A'&& ch<='Z'){
+				int index=ch-'A';
+				arr[index]=true;
+			}
+		}
+		for(int i=0;i<26;i++){
+			if(arr[i]==false){
+				System.out.print("NO");
+				return;
+			}
+		}
+		System.out.print("YES");
+	}
+}
+
+//*pangram
+
+3.
+public class Solution {
+
+    public static void twoSubstrings(String s) {
+        // Write your code here
+        boolean ab = false;
+
+boolean ba = false;
+ for (int i=0;i<s.length()-1;i++){
+
+if(s.charAt(i)=='A' && s.charAt(i+1)=='B' && ab == false)
+{ 
+    ab = true;
+    i++;
+
+} 
+else if(s.charAt(i)=='B' && s.charAt(i+1)=='A' && ba == false) {
+
+ba = true;
+i++;
+
+}
+
+}
+
+if(ab==true && ba== true){
+     System.out.print("YES"); 
+     return;
+
+}
+
+else{
+
+System.out.print("NO");
+
+return;
+    }
+    }
+}
+//* two substrings
+
+
+//this are from group 1 set 3 with 70% passed

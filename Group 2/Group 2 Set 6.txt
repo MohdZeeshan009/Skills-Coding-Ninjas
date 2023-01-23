@@ -1,0 +1,121 @@
+<<<Group 2 Set 6>>>     ((((77%))))
+
+
+
+********BreakNumbers********
+
+
+public class solution {
+	public static void printPartitions( int target,int maxValue,String suffix){
+		if(target==0)
+		System.out.println(suffix);
+		 else{
+		 if(maxValue>1)
+
+		 printPartitions(target,maxValue-1,suffix);
+		 
+
+		 if( maxValue<=target)
+		 printPartitions(target-maxValue,maxValue,maxValue+" "+suffix);
+		 
+	}
+	}
+
+	public static void printCombination(int num){
+		//Write your code here
+		printPartitions(num,num,"");
+	}
+}
+
+
+
+********Predict the output********
+What will be the output of the following code?
+class Test 
+{ 
+    int a; 
+    int b; 
+    Test() 
+    {   
+        this(10, 20);   
+        System.out.print("constructor one "); 
+    } 
+    Test(int a, int b) 
+    { 
+        this.a = a; 
+        this.b = b; 
+        System.out.print("constructor two "); 
+    } 
+}
+class new_test{
+    public static void main(String[] args) 
+    { 
+        Test object = new Test(); 
+    } 
+} 
+
+
+*********************
+Solution of MCQ:
+*********************
+
+constructor two constructor one
+
+
+
+********Find the time complexity********
+What will be the runtime complexity of the following function?
+int getans(int n)
+    ans=0
+    for(lv=1; lv * lv <= n; lv++)
+        inner_lv = n
+        while(inner_lv > 0)
+            inner_lv- = lv
+        ans++
+
+return ans
+
+*********************
+Solution of MCQ:
+*********************
+
+O(n*log(n))
+
+
+
+********Find the time complexity********
+Find the time complexity of following pseudo code:
+int func(int n)
+    count=0
+    lv=n
+    while(lv > 0)
+        inner_lv=0
+        while(inner_lv < lv)
+            inner_lv++
+            count+=1
+        lv/=2
+
+return count
+
+*********************
+Solution of MCQ:
+*********************
+
+O(n)
+
+
+********Sum of Powers of Three********
+
+class Solution {
+    static public boolean checkPowersOfThree(int n) {
+        while(n>0){
+            if(n%3==2){
+                return false;
+            }
+            n/=3;
+        }
+        // Write your code here
+        return true;
+        
+    }
+}

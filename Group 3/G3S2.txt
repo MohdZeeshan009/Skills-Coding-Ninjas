@@ -1,0 +1,205 @@
+G3S2
+
+
+<<< Winner of the Circular Game >>>
+
+import java.util.*;
+public class Solution
+{
+    static public int findTheWinner(int n, int k) {
+        // Write your code here
+
+        boolean[] friends = new boolean[n];
+
+    int friendCount = n;
+    int fp = n; 
+
+    while (friendCount > 1) {
+      for (int i = 0; i < k; ++i, ++fp)
+        while (friends[fp % n]) 
+          ++fp;                 
+      friends[(fp - 1) % n] = true;
+      --friendCount;
+    }
+
+    for (fp = 0; friends[fp]; ++fp)
+      ;
+    return fp + 1;
+    }
+}
+
+
+<<< Valid Stack Permutation >>>
+
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Solution {
+    public static boolean validStackPermutation(ArrayList<Integer> first, ArrayList<Integer> other){
+        // Write your code here.
+
+        Stack<Integer> st = new Stack<Integer>();
+
+        int p = 0;
+
+
+		for (int i = 0; i < first.size(); i++) {
+			st.push(first.get(i));
+
+			while (!st.empty() && (other.get(p).intValue() == st.peek().intValue())) {
+				p++;
+
+				st.pop();
+			}
+		}
+		if (st.empty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+    }
+}
+
+
+
+<<<< Convert Bst To The Greater Sum Tree >>>>
+
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> {
+        T val;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        public TreeNode(T val) {
+            this.val = val;
+            left = null
+            right = null
+        }
+    };
+
+ ************************************************************/
+import java.util.HashMap; 
+class Solution{
+	public static TreeNode<Integer> convertBstToGreaterSum(TreeNode<Integer> root)
+	{
+		// Write your code here.
+
+        HashMap<Integer, Integer> greaterSum = new HashMap<>();
+
+        findGreaterSum(root, root, greaterSum);
+
+        replaceWithGreaterSum(root, greaterSum);
+
+        return root;
+	}
+
+private static int getMaxSum(TreeNode < Integer > root, int keyValue) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int sum = 0, leftAns = 0, rightAns = 0;
+
+        if (root.val <= keyValue) {
+            rightAns = getMaxSum(root.right, keyValue);
+        } else {
+
+            sum = sum + root.val;
+
+            leftAns = getMaxSum(root.left, keyValue);
+
+            rightAns = getMaxSum(root.right, keyValue);
+        }
+
+        return sum + leftAns + rightAns;
+    }
+
+    private static void findGreaterSum(TreeNode < Integer > currentRoot, TreeNode < Integer > root, HashMap < Integer, Integer > map) {
+
+        if (currentRoot == null) {
+            return;
+        }
+
+        int maxNodeSum = getMaxSum(root, currentRoot.val);
+
+        map.put(currentRoot.val, maxNodeSum);
+
+        findGreaterSum(currentRoot.left, root, map);
+
+        findGreaterSum(currentRoot.right, root, map);
+    }
+
+    private static void replaceWithGreaterSum(TreeNode < Integer > root, HashMap < Integer, Integer > map) {
+
+        if (root == null) {
+            return;
+        }
+
+        root.val = map.get(root.val);
+
+        replaceWithGreaterSum(root.left, map);
+
+        replaceWithGreaterSum(root.right, map);
+    }
+}
+
+
+
+
+<<<< Sorted Linked List to Balanced BST >>>>
+
+
+public class Solution
+{
+	public static TreeNode<Integer> sortedListToBST(Node<Integer> head)
+	{
+		// Write your code here.
+
+		if (head == null)
+    {
+        return null;
+    }
+
+    Node<Integer> mid = findMiddleElement(head);
+
+    TreeNode<Integer> newNode = new TreeNode<Integer>(mid.data);
+
+        if (head == mid)
+    {
+        return newNode;
+    }
+
+    newNode.left = sortedListToBST(head);
+    newNode.right = sortedListToBST(mid.next);
+
+        return newNode;
+	}
+
+	public static Node<Integer> findMiddleElement(Node<Integer> head)
+    {
+        Node<Integer> prevPtr = null;
+
+        Node<Integer> slowPtr = head;
+        Node<Integer> fastPtr = head;
+
+        while (fastPtr != null && fastPtr.next != null)
+        {
+            prevPtr = slowPtr;
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+        }
+
+        if (prevPtr != null)
+        {
+            prevPtr.next = null;
+        }
+
+        return slowPtr;
+    }
+}

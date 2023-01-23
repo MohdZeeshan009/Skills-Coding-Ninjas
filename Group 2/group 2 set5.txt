@@ -1,0 +1,146 @@
+1. 
+public class Solution {
+
+	public static long find_Ways(int N){
+
+        if(N==0)return (long)1;
+		if(N==1 || N==2)return  (long)2;
+        if(N==3)return  (long)4;
+
+     return find_Ways(N-1)+find_Ways(N-2);
+	 }
+
+}
+
+
+2. 
+public class Solution {
+
+	public static boolean subsetSumToKIdentical(int input[], int n,int k){
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+	 	 * Taking input and printing output is handled automatically.
+		 */
+		return subsetSumToKIdentical(input,n,0,k);
+	}
+static boolean subsetSumToKIdentical(int input[] , int n, int si, int k){
+          if(k==0)return true;
+          if(k<0 || si>=n)return false;
+
+ boolean inluding  = subsetSumToKIdentical(input, n , si+1 , k-input[si] );
+  if(inluding==true)return true;
+ boolean excluding = subsetSumToKIdentical(input , n , si+1 , k );
+ return inluding||excluding;
+	}
+}
+
+3. 
+import java.util.Scanner;
+public class Solution {
+
+	public static void main(String[] args) {
+
+	Scanner s= new Scanner(System.in);
+	int a = s.nextInt();
+	int n = s.nextInt();
+    int mod = 1337;
+    a = a%mod;
+	long[] arr = new long[10];
+
+	int element=s.nextInt();
+
+    long output = fastPower(a,element,mod);
+	for(int i =1; i<n ; i++){
+		element = s.nextInt();
+		if(arr[element]==0){
+        arr[element] = fastPower(a,element,mod);
+		output = (fastPower(output,10,mod) * arr[element])%mod;
+		}else{
+		output = (fastPower(output,10,mod) * arr[element])%mod;
+		}
+	}
+    System.out.print(output);
+}
+public static long fastPower(long a, long b , long mod){
+
+long output =1;
+while(b>0){
+	if( (b&1) != 0){ // bit & operation
+		output = (output * a)%mod;
+	   }
+	a = (a * a )%mod;
+	b = b>>1; //bit left shift operation same as divide by 2;
+   }
+   return output;
+}
+
+}
+
+4. 
+/*
+    Time Complexity: O(2 ^ N)
+    Space Complexity: O👎
+
+    Where 'N' is the length of the string to be created.
+*/
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Solution {
+	public static void generateStringHelper(int k, char str[], int n, ArrayList<String> ans) {
+
+		// Terminate binary string and push in answer.
+		if (n == k) {
+			ans.add(new String(str));
+
+			return;
+		}
+
+		/*
+			If previous character is '1' then we put 
+			only 0 at end of string.
+			Example str = "01" then new string will be "010".
+		*/
+		if (str[n - 1] == '1') {
+			str[n] = '0';
+			generateStringHelper(k, str, n + 1, ans);
+		}
+
+		/*
+			If previous character is '0' then we put 
+			both '1' and '0' at end of string.
+			Example str = "00" then new string is "001" and "000".
+		*/
+		if (str[n - 1] == '0') {
+			str[n] = '0';
+			generateStringHelper(k, str, n + 1, ans);
+			str[n] = '1';
+			generateStringHelper(k, str, n + 1, ans);
+		}
+	}
+
+	public static ArrayList<String> generateString(int k) {
+		
+		ArrayList<String> ans = new ArrayList<>();
+		
+		if (k == 0) {
+			return ans;
+		}
+		// A string with K elements.
+		char str[] = new char[k];
+		
+		// First character 0.
+		str[0] = '0';
+		generateStringHelper(k, str, 1, ans);
+		
+		// First character 1.
+		str[0] = '1';
+		generateStringHelper(k, str, 1, ans);
+		
+		Arrays.sort(str);
+
+		return ans;
+	}
+}

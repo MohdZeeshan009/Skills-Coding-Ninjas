@@ -1,0 +1,92 @@
+In Between Linked Lists
+
+class Solution {
+
+    public static LinkedListNode<Integer> mergeInBetween(LinkedListNode<Integer> list1, int a, int b, LinkedListNode<Integer> list2) {
+        LinkedListNode<Integer> curr1 = list1;
+        LinkedListNode<Integer> tail = list2;
+        LinkedListNode<Integer> head = list1;
+        LinkedListNode<Integer> previous = null;
+        LinkedListNode<Integer> next = null;
+        int i=0;
+        while(i < a){
+            previous = curr1;
+            curr1 = curr1.next;
+            i++;
+        }
+        previous.next = null;
+        while(i <= b){
+            curr1 = curr1.next;
+            i++;
+        }
+        next = curr1;
+
+        while(tail != null && tail.next != null){
+            tail = tail.next;
+        }
+
+        if(previous != null){
+            previous.next = list2;
+        } else{
+            head = list2;
+        }
+
+        if(tail != null){
+            tail.next = next;
+        } else {
+            previous.next = next;
+        }
+
+        return head;
+    }
+
+}
+
+
+
+Symmetric Binary Tree (C++ Code)
+
+bool isSymmetric(BinaryTreeNode<int>* left, BinaryTreeNode<int>* right){
+    if (left == NULL || right == NULL){
+        return left==NULL && right==NULL;
+    }
+    int ans1 = left->data == right->data;
+    int leftAns = isSymmetric(left->left, right->right);
+    int rightAns = isSymmetric(left->right, right->left);
+    return ans1 && leftAns && rightAns;
+}
+bool isSymmetric(BinaryTreeNode<int>* root) {
+    if(root == NULL){
+        return true;
+    }
+    return isSymmetric(root->left, root->right);
+}
+
+
+Find the Celebrity  (C++ Code)
+
+int celebrity(int n, int** mat){
+	
+	int *in = new int[n];
+	int *out = new int[n];
+	for(int i=0; i<n; i++){
+		in[i] = 0;
+		out[i] = 0;
+	}
+
+	for(int i=0; i<n; i++){
+		for(int j=0; j<n; j++){
+			int celeb = mat[i][j];
+			out[i] += celeb;
+			in[j] += celeb;
+		}
+	}
+
+	//	Answer would be the node where incoming count is n-1, outgoing count is 0.
+	for(int i=0; i<n; i++){
+		if(in[i] == n-1 && out[i] == 0){
+			return i;
+		}
+	}
+	return -1;
+}
